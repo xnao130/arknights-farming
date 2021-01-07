@@ -12,7 +12,7 @@ const (
 	Mid soctier = "mid"
 )
 
-type plan struct {
+type Plan struct {
 	Name      string
 	Promotion int
 }
@@ -23,7 +23,7 @@ type soc struct {
 	Amount int
 }
 
-func CountSoC(plans ...plan) []soc {
+func CountSoC(plans ...Plan) []soc {
 	var res []soc
 
 	add := func(soc soc) {

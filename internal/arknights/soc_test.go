@@ -6,7 +6,7 @@ import (
 )
 
 func TestCountSoC(t *testing.T) {
-	actual := CountSoC(plan{
+	actual := CountSoC(Plan{
 		Name:      "Siege",
 		Promotion: 1,
 	})
