@@ -15,8 +15,14 @@ type operator struct {
 
 func find(name string) operator {
 	m := map[string]operator{
+		// ★★★★★★
 		"Siege": {
 			rarity: 6,
+			class:  Vangard,
+		},
+		// ★★★★★
+		"Elysium": {
+			rarity: 5,
 			class:  Vangard,
 		},
 	}

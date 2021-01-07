@@ -23,8 +23,8 @@ type soc struct {
 	Amount int
 }
 
-func CountSoC(plans ...Plan) []soc {
-	var res []soc
+func CountSoC(plans ...Plan) []*soc {
+	var res []*soc
 
 	add := func(soc soc) {
 		for _, v := range res {
@@ -34,13 +34,15 @@ func CountSoC(plans ...Plan) []soc {
 			}
 		}
 
-		res = append(res, soc)
+		res = append(res, &soc)
 	}
 
 	elite2 := func(rarity int) int {
 		switch rarity {
 		case 6:
 			return 4 * 2
+		case 5:
+			return 3 * 2
 		}
 		panic(fmt.Sprintf("invalid rarity %v", rarity))
 	}
@@ -49,6 +51,8 @@ func CountSoC(plans ...Plan) []soc {
 		switch rarity {
 		case 6:
 			return 5
+		case 5:
+			return 4
 		}
 		panic(fmt.Sprintf("invalid rarity %v", rarity))
 	}

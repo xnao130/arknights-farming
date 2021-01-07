@@ -1,25 +1,62 @@
 package arknights
 
 import (
-	"github.com/google/go-cmp/cmp"
 	"testing"
+
+	"github.com/google/go-cmp/cmp"
 )
 
 func TestCountSoC(t *testing.T) {
-	actual := CountSoC(Plan{
-		Name:      "Siege",
-		Promotion: 1,
-	})
-
-	expected := []soc{
+	testcases := []struct {
+		plans    []Plan
+		expected []*soc
+	}{
 		{
-			Class:  Vangard,
-			Tier:   Mid,
-			Amount: 8,
+			plans: []Plan{
+				{
+					Name:      "Siege",
+					Promotion: 1,
+				},
+			},
+			expected: []*soc{
+				{
+					Class:  Vangard,
+					Tier:   Mid,
+					Amount: 8,
+				},
+			},
+		},
+		{
+			plans: []Plan{
+				{
+					Name:      "Siege",
+					Promotion: 1,
+				},
+				{
+					Name:      "Elysium",
+					Promotion: 0,
+				},
+			},
+			expected: []*soc{
+				{
+					Class:  Vangard,
+					Tier:   Low,
+					Amount: 4,
+				},
+				{
+					Class:  Vangard,
+					Tier:   Mid,
+					Amount: 14,
+				},
+			},
 		},
 	}
 
-	if diff := cmp.Diff(expected, actual); len(diff) != 0 {
-		t.Errorf("diff=%v", diff)
+	for _, x := range testcases {
+		actual := CountSoC(x.plans...)
+
+		if diff := cmp.Diff(x.expected, actual); len(diff) != 0 {
+			t.Errorf("plans=%v, expected=%v: diff=%v", x.plans, x.expected, diff)
+		}
 	}
 }
