@@ -5,7 +5,8 @@ import "fmt"
 type class string
 
 const (
-	Vangard class = "Vangard"
+	Vanguard class = "Vanguard"
+	Guard    class = "Guard"
 )
 
 type operator struct {
@@ -18,12 +19,17 @@ func find(name string) operator {
 		// ★★★★★★
 		"Siege": {
 			rarity: 6,
-			class:  Vangard,
+			class:  Vanguard,
 		},
 		// ★★★★★
 		"Elysium": {
 			rarity: 5,
-			class:  Vangard,
+			class:  Vanguard,
+		},
+		// ★★★★
+		"Utage": {
+			rarity: 4,
+			class:  Guard,
 		},
 	}
 	op, ok := m[name]

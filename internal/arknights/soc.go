@@ -43,6 +43,8 @@ func CountSoC(plans ...Plan) []*soc {
 			return 4 * 2
 		case 5:
 			return 3 * 2
+		case 4:
+			return 5
 		}
 		panic(fmt.Sprintf("invalid rarity %v", rarity))
 	}
@@ -53,6 +55,8 @@ func CountSoC(plans ...Plan) []*soc {
 			return 5
 		case 5:
 			return 4
+		case 4:
+			return 3
 		}
 		panic(fmt.Sprintf("invalid rarity %v", rarity))
 	}

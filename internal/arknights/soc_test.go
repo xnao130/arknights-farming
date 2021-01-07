@@ -20,7 +20,7 @@ func TestCountSoC(t *testing.T) {
 			},
 			expected: []*soc{
 				{
-					Class:  Vangard,
+					Class:  Vanguard,
 					Tier:   Mid,
 					Amount: 8,
 				},
@@ -39,12 +39,45 @@ func TestCountSoC(t *testing.T) {
 			},
 			expected: []*soc{
 				{
-					Class:  Vangard,
+					Class:  Vanguard,
 					Tier:   Low,
 					Amount: 4,
 				},
 				{
-					Class:  Vangard,
+					Class:  Vanguard,
+					Tier:   Mid,
+					Amount: 14,
+				},
+			},
+		},
+		{
+			plans: []Plan{
+				{
+					Name:      "Siege",
+					Promotion: 1,
+				},
+				{
+					Name:      "Elysium",
+					Promotion: 0,
+				},
+				{
+					Name:      "Utage",
+					Promotion: 1,
+				},
+			},
+			expected: []*soc{
+				{
+					Class:  Guard,
+					Tier:   "mid",
+					Amount: 5,
+				},
+				{
+					Class:  Vanguard,
+					Tier:   Low,
+					Amount: 4,
+				},
+				{
+					Class:  Vanguard,
 					Tier:   Mid,
 					Amount: 14,
 				},
