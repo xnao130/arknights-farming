@@ -14,25 +14,29 @@ const (
 	Mid soctier = "mid"
 )
 
-type soc struct {
+// Chip is "SoC".
+type Chip struct {
 	Class  class
 	Tier   soctier
 	Amount int
 }
 
-// CountSoC returns SoCs required for the plan.
-func CountSoC(plans ...Plan) []*soc {
-	var res []*soc
+// Chips is a list of Chip.
+type Chips []*Chip
 
-	add := func(soc soc) {
+// CountChips returns Chips required for the plan.
+func CountChips(plans ...Plan) Chips {
+	var res Chips
+
+	add := func(x Chip) {
 		for _, v := range res {
-			if v.Class == soc.Class && v.Tier == soc.Tier {
-				v.Amount += soc.Amount
+			if v.Class == x.Class && v.Tier == x.Tier {
+				v.Amount += x.Amount
 				return
 			}
 		}
 
-		res = append(res, &soc)
+		res = append(res, &x)
 	}
 
 	elite2 := func(rarity int) int {
@@ -63,7 +67,7 @@ func CountSoC(plans ...Plan) []*soc {
 		op := find(plan.Name)
 
 		if plan.Promotion < 2 {
-			add(soc{
+			add(Chip{
 				Class:  op.class,
 				Tier:   Mid,
 				Amount: elite2(op.rarity),
@@ -71,7 +75,7 @@ func CountSoC(plans ...Plan) []*soc {
 		}
 
 		if plan.Promotion < 1 {
-			add(soc{
+			add(Chip{
 				Class:  op.class,
 				Tier:   Low,
 				Amount: elite1(op.rarity),

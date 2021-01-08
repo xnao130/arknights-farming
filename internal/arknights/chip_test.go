@@ -6,10 +6,10 @@ import (
 	"github.com/google/go-cmp/cmp"
 )
 
-func TestCountSoC(t *testing.T) {
+func TestCountChips(t *testing.T) {
 	testcases := []struct {
 		plans    []Plan
-		expected []*soc
+		expected Chips
 	}{
 		{
 			plans: []Plan{
@@ -18,7 +18,7 @@ func TestCountSoC(t *testing.T) {
 					Promotion: 1,
 				},
 			},
-			expected: []*soc{
+			expected: Chips{
 				{
 					Class:  Vanguard,
 					Tier:   Mid,
@@ -37,7 +37,7 @@ func TestCountSoC(t *testing.T) {
 					Promotion: 0,
 				},
 			},
-			expected: []*soc{
+			expected: Chips{
 				{
 					Class:  Vanguard,
 					Tier:   Low,
@@ -65,7 +65,7 @@ func TestCountSoC(t *testing.T) {
 					Promotion: 1,
 				},
 			},
-			expected: []*soc{
+			expected: Chips{
 				{
 					Class:  Guard,
 					Tier:   "mid",
@@ -86,7 +86,7 @@ func TestCountSoC(t *testing.T) {
 	}
 
 	for _, x := range testcases {
-		actual := CountSoC(x.plans...)
+		actual := CountChips(x.plans...)
 
 		if diff := cmp.Diff(x.expected, actual); len(diff) != 0 {
 			t.Errorf("plans=%v, expected=%v: diff=%v", x.plans, x.expected, diff)
