@@ -1,6 +1,6 @@
 package arknights
 
-// CountPromotionMaterials returns promotion materials required for the plan.
+// CountPromotionMaterials returns upgrade/promotion materials required for the plan.
 func CountPromotionMaterials(plans ...Plan) Materials {
 	res := make(Materials)
 
@@ -15,6 +15,8 @@ func CountPromotionMaterials(plans ...Plan) Materials {
 			res = res.merge(op.elite1)
 		}
 	}
+
+	res = res.merge(countChips(plans...).materials())
 
 	return res
 }

@@ -2,36 +2,91 @@ package arknights
 
 import (
 	"fmt"
-	"sort"
 )
 
-type soctier string
+type chiptier int
 
 const (
-	// Low is "初級".
-	Low soctier = "low"
-	// Mid is "中級".
-	Mid soctier = "mid"
+	low chiptier = iota
+	mid
+	high
 )
 
-// Chip is "SoC".
-type Chip struct {
-	Class  class
-	Tier   soctier
-	Amount int
+type chip struct {
+	class  class
+	tier   chiptier
+	amount int
 }
 
-// Chips is a list of Chip.
-type Chips []*Chip
+func (x chip) materials() Materials {
+	var name string
+	switch x.tier {
+	case low:
+		name = "Chip"
+	case mid:
+		name = "Chip Pack"
+	case high:
+		name = "Dualchip"
+	}
 
-// CountChips returns Chips required for the plan.
-func CountChips(plans ...Plan) Chips {
-	var res Chips
+	return Materials{
+		material(fmt.Sprintf("%s %s", x.class, name)): x.amount,
+	}
+}
 
-	add := func(x Chip) {
+type chips []*chip
+
+func (x chips) materials() Materials {
+	var res Materials
+	for _, v := range x {
+		res = res.merge(v.materials())
+	}
+	return res
+}
+
+func elite2Amount(rarity int) int {
+	switch rarity {
+	case 6:
+		return 4
+	case 5:
+		return 3
+	case 4:
+		return 5
+	}
+	panic(fmt.Sprintf("invalid rarity %v", rarity))
+}
+
+func elite1Amount(rarity int) int {
+	switch rarity {
+	case 6:
+		return 5
+	case 5:
+		return 4
+	case 4:
+		return 3
+	}
+	panic(fmt.Sprintf("invalid rarity %v", rarity))
+}
+
+func elite2Tier(rarity int) chiptier {
+	switch rarity {
+	case 6:
+		return high
+	case 5:
+		return high
+	case 4:
+		return mid
+	}
+	panic(fmt.Sprintf("invalid rarity %v", rarity))
+}
+
+func countChips(plans ...Plan) chips {
+	var res chips
+
+	add := func(x chip) {
 		for _, v := range res {
-			if v.Class == x.Class && v.Tier == x.Tier {
-				v.Amount += x.Amount
+			if v.class == x.class && v.tier == x.tier {
+				v.amount += x.amount
 				return
 			}
 		}
@@ -39,59 +94,25 @@ func CountChips(plans ...Plan) Chips {
 		res = append(res, &x)
 	}
 
-	elite2 := func(rarity int) int {
-		switch rarity {
-		case 6:
-			return 4 * 2
-		case 5:
-			return 3 * 2
-		case 4:
-			return 5
-		}
-		panic(fmt.Sprintf("invalid rarity %v", rarity))
-	}
-
-	elite1 := func(rarity int) int {
-		switch rarity {
-		case 6:
-			return 5
-		case 5:
-			return 4
-		case 4:
-			return 3
-		}
-		panic(fmt.Sprintf("invalid rarity %v", rarity))
-	}
-
 	for _, plan := range plans {
 		op := find(plan.Name)
 
 		if plan.Promotion < 2 {
-			add(Chip{
-				Class:  op.class,
-				Tier:   Mid,
-				Amount: elite2(op.rarity),
+			add(chip{
+				class:  op.class,
+				tier:   elite2Tier(op.rarity),
+				amount: elite2Amount(op.rarity),
 			})
 		}
 
 		if plan.Promotion < 1 {
-			add(Chip{
-				Class:  op.class,
-				Tier:   Low,
-				Amount: elite1(op.rarity),
+			add(chip{
+				class:  op.class,
+				tier:   low,
+				amount: elite1Amount(op.rarity),
 			})
 		}
 	}
-
-	sort.Slice(res, func(i, j int) bool {
-		if res[i].Class < res[j].Class {
-			return true
-		}
-		if res[i].Class > res[j].Class {
-			return false
-		}
-		return res[i].Tier < res[j].Tier
-	})
 
 	return res
 }

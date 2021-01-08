@@ -18,10 +18,12 @@ func TestCountPromotionMaterials(t *testing.T) {
 				},
 			},
 			expected: Materials{
-				D32Steel:    4,
-				OrironBlock: 5,
-				Polyester:   8,
-				Sugar:       6,
+				D32Steel:                    4,
+				OrironBlock:                 5,
+				Polyester:                   8,
+				Sugar:                       6,
+				material("Sniper Chip"):     5,
+				material("Sniper Dualchip"): 4,
 			},
 		},
 		{
@@ -32,8 +34,9 @@ func TestCountPromotionMaterials(t *testing.T) {
 				},
 			},
 			expected: Materials{
-				D32Steel:    4,
-				OrironBlock: 5,
+				D32Steel:                    4,
+				OrironBlock:                 5,
+				material("Sniper Dualchip"): 4,
 			},
 		},
 		{
@@ -48,9 +51,11 @@ func TestCountPromotionMaterials(t *testing.T) {
 				},
 			},
 			expected: Materials{
-				BipolarNanoflake:     8,
-				OrirockConcentration: 6,
-				KetonColloid:         7,
+				BipolarNanoflake:              8,
+				OrirockConcentration:          6,
+				KetonColloid:                  7,
+				material("Sniper Dualchip"):   4,
+				material("Vanguard Dualchip"): 4,
 			},
 		},
 	}
