@@ -18,9 +18,18 @@ func main() {
 
 	json.Unmarshal(bytes, &plans)
 
-	res := arknights.CountSoC(plans...)
+	socs := arknights.CountSoC(plans...)
 
-	bytes, err = json.MarshalIndent(&res, "", "  ")
+	bytes, err = json.MarshalIndent(&socs, "", "  ")
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(string(bytes))
+
+	materials := arknights.CountPromotionMaterials(plans...)
+
+	bytes, err = json.MarshalIndent(&materials, "", "  ")
 	if err != nil {
 		panic(err)
 	}

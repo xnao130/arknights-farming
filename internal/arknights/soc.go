@@ -8,14 +8,11 @@ import (
 type soctier string
 
 const (
+	// Low is "初級".
 	Low soctier = "low"
+	// Mid is "中級".
 	Mid soctier = "mid"
 )
-
-type Plan struct {
-	Name      string
-	Promotion int
-}
 
 type soc struct {
 	Class  class
@@ -23,6 +20,7 @@ type soc struct {
 	Amount int
 }
 
+// CountSoC returns SoCs required for the plan.
 func CountSoC(plans ...Plan) []*soc {
 	var res []*soc
 
