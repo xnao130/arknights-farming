@@ -51,6 +51,8 @@ const (
 	BipolarNanoflake material = "Bipolar Nanoflake"
 	// D32Steel is "D32鋼".
 	D32Steel material = "D32 Steel"
+	// ChipCatalyst is "SoC強化剤".
+	ChipCatalyst material = "Chip Catalyst"
 )
 
 // Materials holds name-amount pairs.
@@ -65,6 +67,16 @@ func (m Materials) merge(x Materials) Materials {
 
 	for k, v := range x {
 		res[k] += v
+	}
+
+	return res
+}
+
+func (m Materials) multiply(x int) Materials {
+	res := make(Materials)
+
+	for k, v := range m {
+		res[k] += v * x
 	}
 
 	return res
