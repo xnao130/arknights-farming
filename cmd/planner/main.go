@@ -9,16 +9,19 @@ import (
 )
 
 func main() {
-	var plans []arknights.Plan
+	var input struct {
+		Plans    []arknights.Plan
+		Workshop arknights.Materials
+	}
 
-	bytes, err := ioutil.ReadFile("operators.json")
+	bytes, err := ioutil.ReadFile("plan.json")
 	if err != nil {
 		panic(err)
 	}
 
-	json.Unmarshal(bytes, &plans)
+	json.Unmarshal(bytes, &input)
 
-	materials := arknights.CountPromotionMaterials(plans...)
+	materials := arknights.CountPromotionMaterials(input.Plans...).Subtract(input.Workshop).Add(arknights.CountWorkshop(input.Workshop))
 
 	bytes, err = json.MarshalIndent(&materials, "", "  ")
 	if err != nil {

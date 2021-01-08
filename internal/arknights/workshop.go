@@ -23,7 +23,7 @@ func inverse(result material) Materials {
 func CountWorkshop(plans Materials) (cost Materials) {
 	cost = make(Materials)
 	for name, amount := range plans {
-		cost = cost.merge(inverse(name).multiply(amount))
+		cost = cost.Add(inverse(name).multiply(amount))
 	}
 	return
 }

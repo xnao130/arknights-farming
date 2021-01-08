@@ -8,15 +8,15 @@ func CountPromotionMaterials(plans ...Plan) Materials {
 		op := find(plan.Name)
 
 		if plan.Promotion < 2 {
-			res = res.merge(op.elite2)
+			res = res.Add(op.elite2)
 		}
 
 		if plan.Promotion < 1 {
-			res = res.merge(op.elite1)
+			res = res.Add(op.elite1)
 		}
 	}
 
-	res = res.merge(countChips(plans...).materials())
+	res = res.Add(countChips(plans...).materials())
 
 	return res
 }

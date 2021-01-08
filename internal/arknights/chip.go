@@ -39,7 +39,7 @@ type chips []*chip
 func (x chips) materials() Materials {
 	var res Materials
 	for _, v := range x {
-		res = res.merge(v.materials())
+		res = res.Add(v.materials())
 	}
 	return res
 }

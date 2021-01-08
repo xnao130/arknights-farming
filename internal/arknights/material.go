@@ -58,15 +58,13 @@ const (
 // Materials holds name-amount pairs.
 type Materials map[material]int
 
-func (m Materials) merge(x Materials) Materials {
+func (m Materials) normalize() Materials {
 	res := make(Materials)
 
 	for k, v := range m {
-		res[k] += v
-	}
-
-	for k, v := range x {
-		res[k] += v
+		if v != 0 {
+			res[k] = v
+		}
 	}
 
 	return res
@@ -79,5 +77,35 @@ func (m Materials) multiply(x int) Materials {
 		res[k] += v * x
 	}
 
-	return res
+	return res.normalize()
+}
+
+// Add adds x to m.
+func (m Materials) Add(x Materials) Materials {
+	res := make(Materials)
+
+	for k, v := range m {
+		res[k] += v
+	}
+
+	for k, v := range x {
+		res[k] += v
+	}
+
+	return res.normalize()
+}
+
+// Subtract subtracts x from m.
+func (m Materials) Subtract(x Materials) Materials {
+	res := make(Materials)
+
+	for k, v := range m {
+		res[k] += v
+	}
+
+	for k, v := range x {
+		res[k] -= v
+	}
+
+	return res.normalize()
 }
