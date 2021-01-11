@@ -4,4 +4,7 @@ package arknights
 type Plan struct {
 	Name      string
 	Promotion int
+	S1        int
+	S2        int
+	S3        int
 }

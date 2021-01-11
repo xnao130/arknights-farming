@@ -21,7 +21,10 @@ func main() {
 
 	json.Unmarshal(bytes, &input)
 
-	materials := arknights.CountPromotionMaterials(input.Plans...).Subtract(input.Workshop).Add(arknights.CountWorkshop(input.Workshop))
+	materials := arknights.CountPromotionMaterials(input.Plans...).
+		Add(arknights.CountSkillUpgradeMaterials(input.Plans...)).
+		Subtract(input.Workshop).
+		Add(arknights.CountWorkshop(input.Workshop))
 
 	bytes, err = json.MarshalIndent(&materials, "", "  ")
 	if err != nil {
