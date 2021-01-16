@@ -3,8 +3,12 @@ package arknights
 type material string
 
 const (
+	// Ester is "エステル原材".
+	Ester material = "Ester"
 	// Polyester is "初級エステル".
 	Polyester material = "Polyester"
+	// PolyesterPack is "中級エステル".
+	PolyesterPack material = "Polyester Pack"
 	// PolyesterLump is "上級エステル".
 	PolyesterLump material = "Polyester Lump"
 	// SugarSubstitute is "ブドウ糖".
@@ -23,10 +27,16 @@ const (
 	OrironCluster material = "Oriron Cluster"
 	// OrironBlock is "上級異鉄".
 	OrironBlock material = "Oriron Block"
+	// DamagedDevice is "破損装置".
+	DamagedDevice material = "Damaged Device"
 	// Device is "初級装置".
 	Device material = "Device"
+	// IntegratedDevice is "中級装置".
+	IntegratedDevice material = "Integrated Device"
 	// OptimizedDevice is "上級装置".
 	OptimizedDevice material = "Optimized Device"
+	// Orirock is "源岩鉱".
+	Orirock material = "Orirock"
 	// OrirockCube is "初級源岩".
 	OrirockCube material = "Orirock Cube"
 	// OrirockCluster is "中級源岩".
@@ -57,6 +67,10 @@ const (
 	RMA7012 material = "RMA70-12"
 	// RMA7024 is "RMA70-24".
 	RMA7024 material = "RMA70-24"
+	// PolymerizedGel is "融合ゲル".
+	PolymerizedGel material = "Polymerized Gel"
+	// IncandescentAlloy is "熾合金".
+	IncandescentAlloy material = "Incandescent Alloy"
 	// IncandescentAlloyBlock is "上級熾合金".
 	IncandescentAlloyBlock material = "Incandescent Alloy Block"
 	// BipolarNanoflake is "ナノフレーク".
